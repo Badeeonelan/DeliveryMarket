@@ -1,0 +1,6 @@
+.page-title {
+	position: relative;
+	font-weight: 700;
+	font-size: 36px;
+	color: var(--color-text)
+}

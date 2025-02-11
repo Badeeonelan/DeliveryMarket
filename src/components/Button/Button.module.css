@@ -1,0 +1,25 @@
+.button {
+	border: none;
+	background-color: var(--color-primary);
+	color: var(--color-light);
+	padding-inline: 23px;
+	border-radius: 28px;
+	height: 44px;
+}
+
+.button:hover {
+	background-color: #f36913;
+}
+
+.button--big {
+	min-width: 248px;
+	height: 60px;
+	padding-inline: 60px;
+	text-transform: uppercase;
+}
+
+.button--small {
+	min-width: 117px;
+	padding-inline: 10px;
+}
+

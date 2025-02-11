@@ -1,0 +1,32 @@
+.input {
+	height: 50px;
+	width: 257px;
+	border: 1px solid #efefef;
+	border-radius: 10px;
+	padding-inline: 45px 30px;
+}
+
+.input::placeholder {
+	font-weight: 400;
+	font-size: 14px;
+	color: #9aa0b4;
+}
+
+.input:focus {
+	outline: none;
+	width: 350px;
+}
+
+.input-icon {
+	position: relative;
+}
+
+.input-icon::before {
+	position: absolute;
+	top: 47%;
+	transform: translateY(-50%);
+	left: 6%;
+	content: url(/icons/search.svg);
+	width: 13.5px;
+	height: 13.5px;
+}

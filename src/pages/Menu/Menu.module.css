@@ -1,0 +1,28 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu {
+	padding-top: 35px;
+}
+
+.menu-list {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	justify-items: center;
+	gap: 45px 35px;
+}
+
+@media (max-width: 1110px) {
+	.menu-list {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1440px) {
+	.menu-list {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
