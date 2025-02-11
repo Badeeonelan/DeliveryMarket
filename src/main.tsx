@@ -13,6 +13,7 @@ import AuthLayout from './components/Layout/Auth/AuthLayout.tsx'
 import Registration from './pages/Registration/Registration.tsx'
 import Login from './pages/Login/Login.tsx'
 import RequireAuth from './helpers/RequireAuth.tsx'
+import AuthContextProvider from './context/AuthContext'
 
 const Menu = lazy(() => import('./pages/Menu/Menu.tsx'))
 
@@ -73,6 +74,8 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={routes}/>
+		<AuthContextProvider>
+			<RouterProvider router={routes}/>
+		</AuthContextProvider>
    </StrictMode>,
 )

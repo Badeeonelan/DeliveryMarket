@@ -2,8 +2,16 @@ import { NavLink, Outlet } from "react-router-dom";
 import Button from "../../Button/Button";
 import styles from './MenuLayout.module.css';
 import cn from "classnames";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext/AuthContext";
 
 export function MenuLayout() {
+	const Auth = useContext(AuthContext);
+	
+	const logOut = () => {
+		localStorage.setItem('jwt', '');
+		Auth.setIsAuth(false);
+	}
 	
 	return (
 		<div className={cn(styles['layout'])}>
@@ -37,7 +45,7 @@ export function MenuLayout() {
 					</ul>
 				</nav>
 				
-				<Button modifier="small" className={cn(styles["button--exit"])}>
+				<Button modifier="small" className={cn(styles["button--exit"])} onClick={logOut}>
 					<img src="/icons/exit.svg" alt="" />
 					<span>Выйти</span>
 				</Button>

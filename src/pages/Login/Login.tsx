@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import styles from './Login.module.css';
@@ -6,6 +6,7 @@ import cn from 'classnames';
 import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../helpers/API';
 import { ILoginResponse } from '../../interfaces/LoginResponse.interface';
+import { AuthContext } from '../../context/AuthContext/AuthContext';
 
 export interface ILoginForm {
 	email: {
@@ -18,12 +19,12 @@ export interface ILoginForm {
 
 export default function Login() {
 	const [loginError, setLoginError] = useState<string | null>(null);
+	const Auth = useContext(AuthContext);
 
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const target = e.target as typeof e.target & ILoginForm;
-		const response = await sendLogin(target.email.value, target.password.value);
-		console.log(response)
+		sendLogin(target.email.value, target.password.value);
 	}
 	
 	const sendLogin = async (email: string, password: string) => {
@@ -34,6 +35,8 @@ export default function Login() {
 				password
 			});
 			localStorage.setItem('jwt', data.access_token);
+			Auth.setIsAuth(true);
+			console.log(Auth.isAuth)
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setLoginError(error.response?.data.message);
