@@ -10,7 +10,7 @@ export function MenuLayout() {
 	
 	const logOut = () => {
 		localStorage.setItem('jwt', '');
-		Auth.setIsAuth(false);
+		Auth?.setIsAuth(false);
 	}
 	
 	return (

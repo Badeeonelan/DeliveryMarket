@@ -35,8 +35,7 @@ export default function Login() {
 				password
 			});
 			localStorage.setItem('jwt', data.access_token);
-			Auth.setIsAuth(true);
-			console.log(Auth.isAuth)
+			Auth?.setIsAuth(true);
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setLoginError(error.response?.data.message);
