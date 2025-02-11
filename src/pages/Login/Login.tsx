@@ -5,6 +5,7 @@ import styles from './Login.module.css';
 import cn from 'classnames';
 import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../helpers/API';
+import { ILoginResponse } from '../../interfaces/LoginResponse.interface';
 
 export interface ILoginForm {
 	email: {
@@ -28,11 +29,11 @@ export default function Login() {
 	const sendLogin = async (email: string, password: string) => {
 		try {
 			setLoginError(null);
-			const { data } = await axios.post(`${PREFIX}/auth/login`, {
+			const { data } = await axios.post<ILoginResponse>(`${PREFIX}/auth/login`, {
 				email,
 				password
 			});
-			return data;
+			localStorage.setItem('jwt', data.access_token);
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setLoginError(error.response?.data.message);
