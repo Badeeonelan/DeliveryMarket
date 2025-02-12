@@ -1,9 +1,15 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
 import styles from './MenuLayout.module.css';
 import cn from "classnames";
 
 export function MenuLayout() {
+	const navigate = useNavigate();
+	
+	const logout = () => {
+		localStorage.removeItem('jwt');
+		navigate('/auth/login')
+	}
 
 	return (
 		<div className={cn(styles['layout'])}>
@@ -37,7 +43,7 @@ export function MenuLayout() {
 					</ul>
 				</nav>
 				
-				<Button modifier="small" className={cn(styles["button--exit"])}>
+				<Button modifier="small" className={cn(styles["button--exit"])} onClick={logout}>
 					<img src="/icons/exit.svg" alt="" />
 					<span>Выйти</span>
 				</Button>

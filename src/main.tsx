@@ -12,13 +12,14 @@ import axios from 'axios'
 import AuthLayout from './components/Layout/Auth/AuthLayout.tsx'
 import Registration from './pages/Registration/Registration.tsx'
 import Login from './pages/Login/Login.tsx'
+import RequireAuth from './helpers/RequireAuth.tsx'
 
 const Menu = lazy(() => import('./pages/Menu/Menu.tsx'))
 
 const routes = createBrowserRouter([
 	{
 		path: '/',
-		element: <MenuLayout />,
+		element: <RequireAuth><MenuLayout /></RequireAuth>,
 		children: [
 			{
 				element: <Suspense fallback={<>Идет загрузка йоу</>}><Menu /></Suspense>,

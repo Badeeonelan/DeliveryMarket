@@ -6,6 +6,7 @@ import cn from 'classnames';
 import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../helpers/API';
 import { ILoginResponse } from '../../interfaces/LoginResponse.interface';
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginForm {
 	email: {
@@ -18,6 +19,7 @@ export interface ILoginForm {
 
 export default function Login() {
 	const [loginError, setLoginError] = useState<string | null>(null);
+	const navigate = useNavigate();
 
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -32,7 +34,8 @@ export default function Login() {
 				email,
 				password
 			});
-			console.log(data)
+			localStorage.setItem('jwt', data.access_token);
+			navigate('/');
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setLoginError(error.response?.data.message);
