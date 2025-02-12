@@ -7,6 +7,7 @@ import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../helpers/API';
 import { ILoginResponse } from '../../interfaces/LoginResponse.interface';
 import { AuthContext } from '../../context/AuthContext/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export interface ILoginForm {
 	email: {
@@ -19,6 +20,7 @@ export interface ILoginForm {
 
 export default function Login() {
 	const [loginError, setLoginError] = useState<string | null>(null);
+	const navigate = useNavigate();
 	const Auth = useContext(AuthContext);
 
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -36,6 +38,7 @@ export default function Login() {
 			});
 			localStorage.setItem('jwt', data.access_token);
 			Auth?.setIsAuth(true);
+			navigate('/', { replace: true })
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				setLoginError(error.response?.data.message);
