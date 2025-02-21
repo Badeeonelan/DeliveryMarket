@@ -2,12 +2,16 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Button from "../../Button/Button";
 import styles from './MenuLayout.module.css';
 import cn from "classnames";
+import { useDispatch } from "react-redux";
+import { TAppDispatch } from "../../../store/store";
+import { userActions } from "../../../store/user.slice";
 
 export function MenuLayout() {
 	const navigate = useNavigate();
+	const dispatch = useDispatch<TAppDispatch>();
 	
 	const logout = () => {
-		localStorage.removeItem('jwt');
+		dispatch(userActions.removeJwt());
 		navigate('/auth/login')
 	}
 

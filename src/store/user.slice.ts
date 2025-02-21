@@ -11,6 +11,9 @@ const initialState: UserState = {
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
+	selectors: {
+		selectJwt: (state) => state.jwt
+	},
 	reducers: {
 		addJwt: (state, action: PayloadAction<string>) => {
 			state.jwt = action.payload;
