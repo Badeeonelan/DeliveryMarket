@@ -6,7 +6,7 @@ import cn from 'classnames';
 import axios, { AxiosError } from 'axios';
 import { PREFIX } from '../../helpers/API';
 import { ILoginResponse } from '../../interfaces/LoginResponse.interface';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { TAppDispatch } from '../../store/store';
 import { userActions } from '../../store/user.slice';
@@ -70,7 +70,7 @@ export default function Login() {
 			</form>
 			<div className={cn(styles["login__extra"])}>
 				<p>Нет аккаунта?</p>
-				<a href="/" className={cn(styles['login__register-link'])}>Зарегистрироваться</a>
+				<Link to="/auth/register" className={cn(styles['login__register-link'])}>Зарегистрироваться</Link>
 			</div>
 		</div>
 	);
