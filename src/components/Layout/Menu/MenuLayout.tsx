@@ -3,12 +3,39 @@ import Button from "../../Button/Button";
 import styles from './MenuLayout.module.css';
 import cn from "classnames";
 import { useDispatch } from "react-redux";
-import { TAppDispatch } from "../../../store/store";
-import { userActions } from "../../../store/user.slice";
+import { TAppDispatch, useAppSelector } from "../../../store/store";
+import { IUserInfo, userActions, userSlice } from "../../../store/user.slice";
+import axios from "axios";
+import { PREFIX } from "../../../helpers/API";
+import { useEffect, useState } from "react";
 
 export function MenuLayout() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch<TAppDispatch>();
+	const user = useAppSelector(userSlice.selectors.selectUser);
+	const [isLoading, setIsLoading] = useState(false);
+	const jwt_token = useAppSelector(userSlice.selectors.selectJwt);
+	
+	const getUser = async () => {
+		try {
+			setIsLoading(true);
+			
+			const response = await axios.get<IUserInfo>(`${PREFIX}/user/profile`, {
+				headers: {
+					Authorization: `Bearer ${jwt_token}`
+				}
+			})
+			dispatch(userSlice.actions.addUser(response.data))
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsLoading(false)
+		}
+	}
+	
+	useEffect(() => {
+		getUser();
+	}, []);
 	
 	const logout = () => {
 		dispatch(userActions.removeJwt());
@@ -21,8 +48,10 @@ export function MenuLayout() {
 				<div className={cn(styles["drawer__header"])}>
 					<img src="/user-image.png" alt="" className="drawer__user-image" />
 					<div className={cn(styles["drawer__user-info"])}>
-						<div className={cn(styles["drawer__user-name"])}>Андрей Голобурдо</div>
-						<div className={cn(styles["drawer__user-email"])}>gaa3538@gmail.com</div>
+						{user && !isLoading
+							? (<><div className={cn(styles["drawer__user-name"])}>{user.name}</div>
+								<div className={cn(styles["drawer__user-email"])}>{user.email}</div></>)
+							: <>Загружаем</>}
 					</div>
 				</div>
 				
