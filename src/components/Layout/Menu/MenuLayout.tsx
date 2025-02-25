@@ -8,6 +8,7 @@ import { IUserInfo, userActions, userSlice } from "../../../store/user.slice";
 import axios from "axios";
 import { PREFIX } from "../../../helpers/API";
 import { useEffect, useState } from "react";
+import {cartSlice} from "../../../store/cart.slice";
 
 export function MenuLayout() {
 	const navigate = useNavigate();
@@ -15,6 +16,7 @@ export function MenuLayout() {
 	const user = useAppSelector(userSlice.selectors.selectUser);
 	const [isLoading, setIsLoading] = useState(false);
 	const jwt_token = useAppSelector(userSlice.selectors.selectJwt);
+	const cart = useAppSelector(cartSlice.selectors.selectCart);
 	
 	const getUser = async () => {
 		try {
@@ -70,7 +72,9 @@ export function MenuLayout() {
 								[styles['active']]: isActive
 							})}>
 								<img src="/icons/bag.png" alt="" />
-								<span>Корзина</span>
+								<span>Корзина {
+									cart.reduce((acc, product) => acc += product.count, 0)
+								}</span>
 							</NavLink>
 						</li>
 					</ul>

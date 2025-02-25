@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice, { JWT_STORAGE_KEY } from "./user.slice";
 import { useSelector } from "react-redux";
 import { saveState } from "./storage";
+import cartSlice from './cart.slice';
 
 export const store = configureStore({
 	reducer: {
-		user: userSlice
+		user: userSlice,
+		cart: cartSlice
 	}
 });
 
